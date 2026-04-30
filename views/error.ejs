@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Error</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="navbar-brand">BlogHub</a>
+      <div class="nav-links">
+        <% if (typeof user !== 'undefined' && user) { %>
+          <span class="user-greeting"><%= user.fullName %></span>
+          <a href="/logout" class="nav-link logout">Logout</a>
+        <% } else { %>
+          <a href="/login" class="nav-link">Login</a>
+        <% } %>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="error-container">
+      <h1>An Error Occurred</h1>
+      <p><%= message %></p>
+      <a href="/blogs" class="btn btn-primary">Return to Blogs</a>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>&copy; 2026 BlogHub. All rights reserved.</p>
+  </footer>
+</body>
+</html>

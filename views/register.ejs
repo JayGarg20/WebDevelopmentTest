@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="navbar-brand">BlogHub</a>
+      <div class="nav-links">
+        <a href="/login" class="nav-link">Login</a>
+        <a href="/register" class="nav-link">Register</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="auth-wrapper">
+      <div class="auth-box">
+        <h1>Create Account</h1>
+        <p class="subtitle">Join our professional blogging community</p>
+        
+        <% if (typeof message !== 'undefined' && message) { %>
+          <div class="alert alert-info">
+            <%= message %>
+          </div>
+        <% } %>
+
+        <form action="/register" method="post" class="auth-form">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required placeholder="your@email.com">
+          </div>
+
+          <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="fullName" required placeholder="John Doe">
+          </div>
+
+          <div class="form-group">
+            <label for="address">Address (Optional)</label>
+            <input type="text" id="address" name="address" placeholder="City, Country">
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required placeholder="Create a strong password">
+          </div>
+
+          <div class="form-group">
+            <label for="passwordConfirm">Confirm Password</label>
+            <input type="password" id="passwordConfirm" name="passwordConfirm" required placeholder="Confirm your password">
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; margin-top: 0.5rem;">Create Account</button>
+        </form>
+
+        <p class="auth-link">Already have an account? <a href="/login">Sign in here</a></p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>&copy; 2026 BlogHub. All rights reserved.</p>
+  </footer>
+</body>
+</html>

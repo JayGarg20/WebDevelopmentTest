@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Blog</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="navbar-brand">BlogHub</a>
+      <div class="nav-links">
+        <% if (typeof user !== 'undefined' && user) { %>
+          <span class="user-greeting"><%= user.fullName %></span>
+          <a href="/logout" class="nav-link logout">Logout</a>
+        <% } %>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="form-wrapper create-blog-wrapper">
+      <h1>Edit Blog Post</h1>
+      <p class="form-subtitle">Update your blog content and cover image</p>
+      
+      <% if (typeof message !== 'undefined' && message) { %>
+        <div class="alert alert-danger">
+          <%= message %>
+        </div>
+      <% } %>
+
+      <form action="/blogs/<%= blog._id %>" method="post" enctype="multipart/form-data" class="blog-form">
+        <div class="form-group">
+          <label>Author Name (Read-only)</label>
+          <input type="text" value="<%= blog.authorName %>" disabled class="form-control">
+          <small class="help-text">Author name cannot be changed</small>
+        </div>
+
+        <div class="form-group">
+          <label for="blogImage">Cover Image (Optional)</label>
+          <% if (blog.blogImage) { %>
+            <div class="current-image">
+              <img src="<%= blog.blogImage %>" alt="Current blog image" class="current-img">
+              <p class="image-note">Current cover image (upload a new one to replace)</p>
+            </div>
+          <% } %>
+          <div class="image-input-wrapper">
+            <input type="file" id="blogImage" name="blogImage" accept="image/*" class="image-input" onchange="previewImage(event)">
+            <div class="image-preview-container">
+              <div id="imagePreview" class="image-preview-placeholder">
+                Click to select a new image
+              </div>
+            </div>
+          </div>
+          <small class="help-text">Supported formats: JPG, PNG, GIF, WebP (Max 5MB)</small>
+        </div>
+
+        <div class="form-group">
+          <label for="blogContent">Blog Content</label>
+          <textarea id="blogContent" name="blogContent" rows="12" required class="form-control textarea-large"><%= blog.blogContent %></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary btn-lg">Update Blog</button>
+          <a href="/blogs" class="btn btn-secondary btn-lg">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>&copy; 2026 BlogHub. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function previewImage(event) {
+      const file = event.target.files[0];
+      const preview = document.getElementById('imagePreview');
+      
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          preview.innerHTML = `<img src="${e.target.result}" alt="Preview" class="preview-img">`;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        preview.innerHTML = 'Click to select a new image';
+      }
+    }
+  </script>
+</body>
+</html>
